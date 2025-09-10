@@ -1,88 +1,64 @@
-Scribble3D
+# Scribble3D
+Turn your sketches into 3D objects and worlds — No 3D skills required!
+               
 
-Turn your sketches into 3D objects and worlds — no 3D skills required!
+Live Demo / Docs: [Add Link Here]
 
-🚀 Project Overview
+--------------------------------------------------------
+🚀 Want to Contribute?
+--------------------------------------------------------
+- Join our Discord server (Go to Projects → Scribble3D) to chat with contributors.
+- For detailed setup instructions, coding guidelines, and the contribution process, check out CONTRIBUTING.md.
 
-Scribble3D is an open-source tool that lets you:
+--------------------------------------------------------
+🏗️ Architecture
+--------------------------------------------------------
+Frontend:
+  - React: User interface creation
+  - TailwindCSS: Styling
+  - Zustand: State management
 
-Draw freely on a 2D canvas.
+3D Rendering:
+  - Three.js: Real-time 3D rendering
+  - TLDraw / Fabric.js: 2D canvas drawing
+  - Three.js ShapeGeometry / ExtrudeGeometry: 2D → 3D processing
+  - GLTFExporter: Export 3D objects
 
-Convert your sketches into 3D objects.
+Backend (Python):
+  - FastAPI: API framework
+  - Optional: AI-assisted 2D → 3D conversion
 
-Place & manipulate them in a 3D world.
+Backend (Rust via Tauri):
+  - Handles file system operations and bridges frontend with local system
 
-Export your creations in standard 3D formats (.glTF, .OBJ) for Blender, Unity, or any other 3D software.
+--------------------------------------------------------
+🎯 Key Features
+--------------------------------------------------------
+- Intuitive 2D Drawing: create sketches easily on a canvas
+- One-Click 3D Conversion: instantly extrude sketches into 3D shapes
+- Interactive 3D Scene: rotate, scale, and move objects
+- Standard Export Formats: .glTF and .OBJ for Blender/Unity
+- Fully Open Source: beginner-friendly and customizable
 
-This project makes 3D creation accessible to everyone — beginners, hobbyists, and educators alike.
+--------------------------------------------------------
+⚙️ Technical Stack
+--------------------------------------------------------
+Layer                  | Technology
+-----------------------|-----------------------------------
+Frontend               | React, TailwindCSS, Zustand
+3D Rendering           | Three.js
+Canvas                 | TLDraw / Fabric.js
+Backend                | Python, FastAPI
+2D → 3D Processing     | Three.js ShapeGeometry / ExtrudeGeometry
+Export                 | Three.js GLTFExporter
 
-🎯 Features (MVP)
+--------------------------------------------------------
+💡 About
+--------------------------------------------------------
+Scribble3D allows anyone — beginners, hobbyists, and educators — 
+to create 3D objects and worlds from simple sketches 
+without needing advanced 3D skills.
 
-Draw on a 2D canvas using your mouse.
-
-Save sketches as PNG/SVG.
-
-Extrude sketches into basic 3D shapes.
-
-View and manipulate objects in a 3D scene (rotate, scale, move).
-
-Export 3D models in .glTF or .OBJ format.
-
-⚙️ Tech Stack
-Layer	Technology
-Frontend	React, TailwindCSS, Zustand, Three.js
-Canvas	TLDraw or Fabric.js
-Backend	FastAPI, Python
-2D → 3D Processing	Three.js ShapeGeometry / ExtrudeGeometry
-Export	Three.js GLTFExporter
-
-Fully free & open-source tech stack.
-
+--------------------------------------------------------
 📥 Quick Start
-Frontend
-cd frontend
-npm install
-npm run dev
-
-
-Visit http://localhost:5173 in your browser.
-
-Backend
-cd backend
-python -m venv venv
-source venv/bin/activate     # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-
-
-Visit http://127.0.0.1:8000 for backend health check.
-
-🛠️ Future Roadmap
-
-AI-powered sketch enhancement (Hugging Face models).
-
-Sketch + text → realistic 3D model.
-
-Save/load user projects with a database.
-
-Multi-object world editing.
-
-AR/VR export support.
-
-🤝 Contributing
-
-Contributions are welcome!
-
-Fork the repo
-
-Create a branch (git checkout -b feature-name)
-
-Commit your changes (git commit -m 'Add feature')
-
-Push to the branch (git push origin feature-name)
-
-Open a Pull Request
-
-📄 License
-
-MIT License © 2025 YOUR_NAME
+--------------------------------------------------------
