@@ -1,4 +1,8 @@
-# Scribble3D
+# Scribble3D  <img width="100" height="100" alt="ChatGPT Image Sep 11, 2025, 03_52_33 AM" src="https://github.com/user-attachments/assets/d5156f99-a89f-418e-afee-ad5b4cde6229" />
+
+
+                                                  
+
 Turn your sketches into 3D objects and worlds — No 3D skills required!
                
 
