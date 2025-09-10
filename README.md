@@ -1,68 +1,87 @@
-Scribble3D 🎨➡️🌍
+Scribble3D
 
-Turn your doodles into 3D objects and worlds — no 3D skills required!
+Turn your sketches into 3D objects and worlds — no 3D skills required!
 
-✨ What It Does
+🚀 Project Overview
 
-Draw freely on a 2D canvas
+Scribble3D is an open-source tool that lets you:
 
-Instantly convert sketches into 3D objects
+Draw freely on a 2D canvas.
 
-Place and manipulate objects in a 3D scene
+Convert your sketches into 3D objects.
 
-Export your creations as .glTF or .OBJ
+Place & manipulate them in a 3D world.
 
-Think of it as “Paint 3D meets AI creativity” — fun, simple, and open-source.
+Export your creations in standard 3D formats (.glTF, .OBJ) for Blender, Unity, or any other 3D software.
 
-🚀 Why It’s Cool
+This project makes 3D creation accessible to everyone — beginners, hobbyists, and educators alike.
 
-Beginner-friendly → Anyone can create 3D objects
+🎯 Features (MVP)
 
-Fast prototyping → Great for indie games, design concepts, or education
+Draw on a 2D canvas using your mouse.
 
-Fully open-source → Build, modify, and share freely
+Save sketches as PNG/SVG.
 
-💻 Tech Stack
+Extrude sketches into basic 3D shapes.
 
-Frontend: React + TailwindCSS + Three.js
+View and manipulate objects in a 3D scene (rotate, scale, move).
 
-Canvas: TLDraw or Fabric.js
+Export 3D models in .glTF or .OBJ format.
 
-Backend: FastAPI (Python)
+⚙️ Tech Stack
+Layer	Technology
+Frontend	React, TailwindCSS, Zustand, Three.js
+Canvas	TLDraw or Fabric.js
+Backend	FastAPI, Python
+2D → 3D Processing	Three.js ShapeGeometry / ExtrudeGeometry
+Export	Three.js GLTFExporter
 
-3D Processing: Three.js ExtrudeGeometry
+Fully free & open-source tech stack.
 
-Export: GLTFExporter
-
-⚡ Quick Start
-# Frontend
+📥 Quick Start
+Frontend
 cd frontend
 npm install
 npm run dev
 
-# Backend
+
+Visit http://localhost:5173 in your browser.
+
+Backend
 cd backend
 python -m venv venv
-source venv/bin/activate   # Windows: venv\Scripts\activate
+source venv/bin/activate     # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload
 
 
-Open browser → http://localhost:5173 to start drawing!
+Visit http://127.0.0.1:8000 for backend health check.
 
-📈 Roadmap
+🛠️ Future Roadmap
 
-AI-powered sketch cleanup
+AI-powered sketch enhancement (Hugging Face models).
 
-Sketch + text → realistic 3D
+Sketch + text → realistic 3D model.
 
-Save/load projects
+Save/load user projects with a database.
 
-Multi-object editing & AR/VR export
+Multi-object world editing.
 
-🤝 Contribute
+AR/VR export support.
 
-Fork, code, and open a Pull Request. Let’s make 3D creation fun and accessible!
+🤝 Contributing
+
+Contributions are welcome!
+
+Fork the repo
+
+Create a branch (git checkout -b feature-name)
+
+Commit your changes (git commit -m 'Add feature')
+
+Push to the branch (git push origin feature-name)
+
+Open a Pull Request
 
 📄 License
 
