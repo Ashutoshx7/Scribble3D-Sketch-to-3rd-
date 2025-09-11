@@ -1,19 +1,7 @@
-# Scribble3D  <img width="100" height="100" alt="ChatGPT Image Sep 11, 2025, 03_52_33 AM" src="https://github.com/user-attachments/assets/d5156f99-a89f-418e-afee-ad5b4cde6229" />
-
-
-                                                  
+# Scribble3D<img width="120" height="120" alt="Gemini_Generated_Image_g3ac58g3ac58g3ac (1)" src="https://github.com/user-attachments/assets/77978818-add3-4983-a20c-134c9979f4d7" />
 
 Turn your sketches into 3D objects and worlds — No 3D skills required!
                
-
-Live Demo / Docs: [Add Link Here]
-
---------------------------------------------------------
-🚀 Want to Contribute?
---------------------------------------------------------
-- Join our Discord server (Go to Projects → Scribble3D) to chat with contributors.
-- For detailed setup instructions, coding guidelines, and the contribution process, check out CONTRIBUTING.md.
-
 --------------------------------------------------------
 🏗️ Architecture
 --------------------------------------------------------
@@ -31,9 +19,6 @@ Frontend:
 Backend (Python):
   - FastAPI: API framework
   - Optional: AI-assisted 2D → 3D conversion
-
-Backend (Rust via Tauri):
-  - Handles file system operations and bridges frontend with local system
 
 --------------------------------------------------------
 🎯 Key Features
