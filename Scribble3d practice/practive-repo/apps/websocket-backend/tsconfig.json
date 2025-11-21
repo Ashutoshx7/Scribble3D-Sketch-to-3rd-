@@ -1,9 +1,0 @@
-{
-    "extend": "@repo/typescript-config/base.json",
-    "compilerOptions": {
-        "rootDir":"./src",
-        "outDir":"./dist",
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true
-    }
-}
