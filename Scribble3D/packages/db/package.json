@@ -18,10 +18,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^7.1.0"
+    "@prisma/adapter-pg": "^7.1.0",
+    "@prisma/client": "^7.1.0",
+    "pg": "^8.16.3"
   },
   "devDependencies": {
-    "prisma": "^7.1.0",
-    "dotenv": "^16.0.0"
+    "@types/pg": "^8.16.0",
+    "dotenv": "^16.0.0",
+    "prisma": "^7.1.0"
   }
 }

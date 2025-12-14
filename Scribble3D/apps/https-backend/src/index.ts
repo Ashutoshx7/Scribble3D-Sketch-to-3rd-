@@ -1,9 +1,11 @@
+import "dotenv/config";  
+
 import express from "express"
-import {JWT_SECRET }  from "./config"
+import { JWT_SECRET } from "./config"
 import jwt from 'jsonwebtoken';
-import {middleware} from "./middleware"
-import {CreateUerSchema,createRoomSchema,SiginSchema}  from "./types";
-import  { prismaClient } from  "@repo/db/client";
+import { middleware } from "./middleware"
+import { CreateUerSchema, createRoomSchema, SiginSchema } from "./types";
+import { prismaClient } from "@repo/db/client";
 const app = express();
 app.use(express.json())
 const PORT = parseInt(process.env.PORT || "4000", 10);
@@ -26,7 +28,7 @@ app.post("/signup", async (req, res) => {
 			}
 		})
 		res.json({
-			userId: "123"
+			userId: user.id
 		})
 	} catch (e) {
 		res.status(411).json({
@@ -54,9 +56,7 @@ app.post("/signin", async (req,res)=>{
 
 })
 
-app.listen(PORT, () => {
-	console.log(`HTTPS Backend listening on port ${PORT}`)
-})
+
 
 
 
