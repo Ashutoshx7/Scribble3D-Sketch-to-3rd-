@@ -3,11 +3,11 @@ import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "./config";
 import type { JwtPayload } from "jsonwebtoken";
 import net from "net";
+import { prisma } from "@repo/db";
 
 async function findAvailablePort(startPort: number, maxPort = startPort + 50): Promise<number> {
     let port = startPort;
     while (port <= maxPort) {
-        
         try {
             await new Promise<void>((resolve, reject) => {
                 const tester = net.createServer()
@@ -41,33 +41,55 @@ async function start() {
     const wss = new WebSocketServer({ port });
     console.log(`WebSocket server listening on port ${port}`);
 
-    wss.on("connection", function connection(ws, request) {
+    wss.on("connection", async function connection(ws, request) {
         const url = request.url;
         if (!url) {
             return;
         }
         const queryParams = new URLSearchParams(url.split("?")[1]);
         const token = queryParams.get("token") || "";
-        let decoded: string | jwt.JwtPayload | undefined;
+
         try {
-            decoded = jwt.verify(token, JWT_SECRET);
-        } catch (e) {
-            ws.close();
-            return;
-        }
+            const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
+            const userId = decoded.userId;
 
-        if (!decoded || !(decoded as JwtPayload).userId) {
-            ws.close();
-            return;
-        }
+            // Verify user exists in database
+            const user = await prisma.user.findUnique({
+                where: { id: userId }
+            });
 
-        ws.on("message", function message(data) {
-            ws.send("hello from web socket");
-        });
+            if (!user) {
+                ws.close(1008, "User not found");
+                return;
+            }
+
+            ws.on("message", async function message(data) {
+                const payload = JSON.parse(data.toString());
+                
+                // Example: Save chat message
+                if (payload.type === "chat") {
+                    await prisma.chat.create({
+                        data: {
+                            message: payload.message,
+                            userId: userId,
+                            roomId: payload.roomId
+                        }
+                    });
+                }
+
+                // Broadcast to all clients in the room
+                wss.clients.forEach(function each(client) {
+                    if (client.readyState === ws.OPEN) {
+                        client.send(JSON.stringify(payload));
+                    }
+                });
+            });
+
+            ws.send(JSON.stringify({ type: "connected", userId }));
+        } catch (error) {
+            ws.close(1008, "Invalid token");
+        }
     });
 }
 
-start().catch((err) => {
-    console.error("Failed to start ws-backend:", err);
-    process.exit(1);
-});
+start();
