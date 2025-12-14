@@ -1,73 +1,90 @@
-import { WebSocketServer } from "ws";
+import { WebSocketServer, WebSocket } from "ws";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "./config";
 import type { JwtPayload } from "jsonwebtoken";
 import net from "net";
 
-async function findAvailablePort(startPort: number, maxPort = startPort + 50): Promise<number> {
-    let port = startPort;
-    while (port <= maxPort) {
+
+interface User{
+    ws:WebSocket,
+    rooms: string[],
+    userId:string,
+}
+const users:User[]= [];
+
+
+
+const wss =new WebSocketServer ({port:8080});
+function checkUser(token:string):string | null{
+    const decoded =jwt.verify(token,JWT_SECRET);
+
+
+    if(typeof decoded=="string"){
         
-        try {
-            await new Promise<void>((resolve, reject) => {
-                const tester = net.createServer()
-                    .once("error", (err: any) => {
-                        tester.close();
-                        reject(err);
-                    })
-                    .once("listening", () => {
-                        tester.once("close", resolve);
-                        tester.close();
-                    })
-                    .listen(port, "::");
-            });
-            return port;
-        } catch (err: any) {
-            if (err && err.code === "EADDRINUSE") {
-                port += 1;
-                continue;
-            }
-            port += 1;
-        }
+        return null;
+
     }
-    throw new Error("No available ports found");
+    if(!decoded || !decoded.userId){
+        
+        return null;
+
+    }
+    return decoded.userId;
+};
+wss.on('connection',function connection (ws,request){
+    const url=request.url;
+    if(!url){
+        return;
+
+    }
+    const   queryParams=new URLSearchParams(url.split("?")[1]);
+    const token =queryParams.get("token")  || "";
+    const  userId = checkUser(token);
+
+
+if(userId ==null){
+    wss.close();
+    return null;
 }
 
-async function start() {
-    const envPort = parseInt(process.env.WS_PORT || "", 10);
-    const basePort = Number.isFinite(envPort) && envPort > 0 ? envPort : 8080;
-    const port = await findAvailablePort(basePort);
+users.push({
+    userId,
+    rooms:[],
+    ws
+})
+    
 
-    const wss = new WebSocketServer({ port });
-    console.log(`WebSocket server listening on port ${port}`);
+    
+    ws.on("message",function message(data){
+     const parsedData=JSON.parse(data as unknown as string);
 
-    wss.on("connection", function connection(ws, request) {
-        const url = request.url;
-        if (!url) {
+     if (parsedData.type ==="join_room"){
+        const user=users.find( x =>x.ws === ws);
+        user?.rooms.push(parsedData.roomId);
+     }
+
+     if(parsedData.type =="leave_room"){
+        const user=users.find( x=>x.ws === ws);
+        if(!user){
             return;
-        }
-        const queryParams = new URLSearchParams(url.split("?")[1]);
-        const token = queryParams.get("token") || "";
-        let decoded: string | jwt.JwtPayload | undefined;
-        try {
-            decoded = jwt.verify(token, JWT_SECRET);
-        } catch (e) {
-            ws.close();
-            return;
-        }
 
-        if (!decoded || !(decoded as JwtPayload).userId) {
-            ws.close();
-            return;
         }
+        user.rooms = user.rooms.filter(x=> x !== parsedData.roomId)
+     }
 
-        ws.on("message", function message(data) {
-            ws.send("hello from web socket");
-        });
-    });
-}
+     if (parsedData.type =="chat"){
+        const room =parsedData.roomId;
+        const message=parsedData.message;
 
-start().catch((err) => {
-    console.error("Failed to start ws-backend:", err);
-    process.exit(1);
+        users.forEach(user=>{
+            if(user.rooms.includes(room)){
+                user.ws.send(JSON.stringify({
+                    type:"chat",
+                    message:message,
+                    room,
+                }))
+            }
+        })
+     }
+    })
 });
