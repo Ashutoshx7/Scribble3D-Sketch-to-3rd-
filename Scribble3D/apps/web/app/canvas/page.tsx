@@ -51,9 +51,9 @@ export default function CanvasPage() {
             )}
             
             {/* Toggle Button - positioned top center */}
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] pointer-events-auto">
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-1000 pointer-events-auto">
                 <button 
-                    className="group relative px-8 py-4 bg-gradient-to-r from-violet-600 to-indigo-600 
+                    className="group relative px-8 py-4 bg-linear-to-r from-violet-600 to-indigo-600 
                                hover:from-violet-500 hover:to-indigo-500 text-white font-semibold 
                                rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-indigo-500/25
                                transition-all duration-300 ease-out hover:scale-105 
@@ -62,7 +62,7 @@ export default function CanvasPage() {
                     onClick={() => setIs3D(!is3D)}
                 >
                     {/* Glow effect */}
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 
+                    <div className="absolute inset-0 rounded-2xl bg-linear-to-r from-violet-600 to-indigo-600 
                                     opacity-0 group-hover:opacity-50 blur-xl transition-opacity duration-300" />
                     
                     {/* Icon */}
@@ -88,7 +88,7 @@ export default function CanvasPage() {
             </div>
 
             {/* Mode indicator */}
-            <div className="absolute bottom-4 left-4 z-[1000] pointer-events-none">
+            <div className="absolute bottom-4 left-4 z-1000 pointer-events-none">
                 <div className="px-5 py-3 bg-black/60 backdrop-blur-md text-white rounded-xl 
                                 border border-white/10 shadow-lg flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
