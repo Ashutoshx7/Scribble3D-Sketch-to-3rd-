@@ -2,52 +2,71 @@
 
 Turn your sketches into 3D objects and worlds — No 3D skills required!
                
---------------------------------------------------------
-🏗️ Architecture
---------------------------------------------------------
-Frontend:
-  - React: User interface creation
-  - TailwindCSS: Styling
-  - Zustand: State management
 
-3D Rendering:
-  - Three.js: Real-time 3D rendering
-  - TLDraw / Fabric.js: 2D canvas drawing
-  - Three.js ShapeGeometry / ExtrudeGeometry: 2D → 3D processing
-  - GLTFExporter: Export 3D objects
 
-Backend (Python):
-  - FastAPI: API framework
-  - Optional: AI-assisted 2D → 3D conversion
+https://github.com/user-attachments/assets/a3c804e1-b208-4855-b285-d571bedf1f3e
 
---------------------------------------------------------
-🎯 Key Features
---------------------------------------------------------
-- Intuitive 2D Drawing: create sketches easily on a canvas
-- One-Click 3D Conversion: instantly extrude sketches into 3D shapes
-- Interactive 3D Scene: rotate, scale, and move objects
-- Standard Export Formats: .glTF and .OBJ for Blender/Unity
-- Fully Open Source: beginner-friendly and customizable
 
---------------------------------------------------------
-⚙️ Technical Stack
---------------------------------------------------------
-Layer                  | Technology
------------------------|-----------------------------------
-Frontend               | React, TailwindCSS, Zustand
-3D Rendering           | Three.js
-Canvas                 | TLDraw / Fabric.js
-Backend                | Python, FastAPI
-2D → 3D Processing     | Three.js ShapeGeometry / ExtrudeGeometry
-Export                 | Three.js GLTFExporter
+## How It Works
 
---------------------------------------------------------
-💡 About
---------------------------------------------------------
-Scribble3D allows anyone — beginners, hobbyists, and educators — 
-to create 3D objects and worlds from simple sketches 
-without needing advanced 3D skills.
+1. **Sketch**: Draw freely on the 2D canvas
+2. **Enhance**: Use the "Improve Drawing" button to refine sketches into detailed, polished drawings
+3. **Transform**: Click "Make 3D" to convert your drawing into a 3D model
+4. **Build**: Add your 3D models to the world by switching to the 3D World tab
+5. **Iterate**: Edit and refine your 3D models by sketching or by writing a text prompt
+6. **Export**: Export your 3D world with 1 click in a standard format (.glTF) to integrate with your pre-existing tooling 
 
---------------------------------------------------------
-📥 Quick Start
---------------------------------------------------------
+## Quick Start
+
+### Prerequisites
+
+- Node.js 18+
+- Python 3.10+
+- API keys for Claude, Gemini, Cerebras, and PiAPI
+
+### Frontend Setup
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+
+### Backend Setup
+
+```bash
+cd backend
+
+# remember to add api keys
+cp .env.example .env
+
+docker compose up
+```
+
+## Architecture
+
+### Frontend
+
+- **Next.js & React**: Responsive, user-friendly UI
+- **Three.js**: Rendering interactive 3D models
+- **TLDraw**: Powerful 2D drawing canvas
+- **Zustand**: State management
+
+### Backend
+
+- **FastAPI**: High-performance API framework
+- **Celery**: Asynchronous task queue for AI operations
+- **Redis**: Pub/Sub for real-time updates and task result storage
+- **SSE (Server-Sent Events)**: Real-time progress updates
+
+## Inspiration
+
+Creativity is often constrained by technical skills or complex software. Vibe Draw makes 3D modeling accessible to anyone regardless of artistic or technical abilities.
+
+Our goal is to empower people to freely express their imagination and bring their ideas effortlessly into 3D worlds.
+
+## License
+
+[AGPL](LICENSE)
