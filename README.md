@@ -1,72 +1,122 @@
-# Scribble3D<img width="120" height="120" alt="Gemini_Generated_Image_g3ac58g3ac58g3ac (1)" src="https://github.com/user-attachments/assets/77978818-add3-4983-a20c-134c9979f4d7" />
+# Scribble3D 🎨✨
+### Turn your sketches into 3D objects and worlds — No 3D skills required!
 
-Turn your sketches into 3D objects and worlds — No 3D skills required!
-               
+[![License: AGPL](https://img.shields.io/badge/License-AGPL-blue.svg)](LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black.svg)](https://nextjs.org/)
+[![Three.js](https://img.shields.io/badge/Three.js-r170-orange.svg)](https://threejs.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com/)
 
+---
 
+## 📺 Project Demo
 https://github.com/user-attachments/assets/a3c804e1-b208-4855-b285-d571bedf1f3e
 
+---
 
-## How It Works
+## 🚀 The Vision
+Scribble3D is an AI-powered creative suite that removes the technical barriers to 3D modeling. Whether you're a professional designer or someone who just likes to doodle, Scribble3D allows you to transform simple sketches into rich, interactive 3D environments in seconds.
 
-1. **Sketch**: Draw freely on the 2D canvas
-2. **Enhance**: Use the "Improve Drawing" button to refine sketches into detailed, polished drawings
-3. **Transform**: Click "Make 3D" to convert your drawing into a 3D model
-4. **Build**: Add your 3D models to the world by switching to the 3D World tab
-5. **Iterate**: Edit and refine your 3D models by sketching or by writing a text prompt
-6. **Export**: Export your 3D world with 1 click in a standard format (.glTF) to integrate with your pre-existing tooling 
+## ✨ Key Features
 
-## Quick Start
+### 1. Dual AI Generation Engines
+- **Standard Mode (Claude 3.7)**: Generates procedural Three.js JavaScript code. This creates lightweight, editable models that you can refine using procedural logic.
+- **Thinking Mode (Trellis)**: Utilizes deep-reasoning foundation models to generate high-fidelity GLTF assets from complex drawings. Perfect for organic or highly detailed shapes.
+
+### 2. Magic "Wow" Workflow
+- **Automatic Teleportation**: Once your 3D model is ready, the app automatically switches your view from the 2D canvas to the 3D world.
+- **Instant Scene Integration**: Generated objects are parsed and placed into your persistence-backed 3D world immediately.
+
+### 3. Iterative Sketch-to-Edit
+- Select any 3D model in your world, draw a modification on the 2D canvas, and click **"Edit 3D"**. Claude will intelligently update the Three.js code or Trellis will re-generate the model to match your vision.
+
+### 4. Interactive 3D World
+- **First-Person Controls**: Explore your world with standard WASD controls.
+- **Premium Aesthetics**: Features glassmorphism UI, interactive grids, and a dynamic Ocean environment for your models to live in.
+- **Multi-device Support**: Includes optimized joystick controls for mobile and tablet browsing.
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend:**
+- **Framework**: Next.js 15 (Turbopack)
+- **2D Canvas**: [tldraw](https://tldraw.dev/)
+- **3D Engine**: Three.js + [React Three Fiber](https://r3.docs.pmnd.rs/)
+- **State Management**: Zustand
+- **Styling**: Vanilla CSS with Modern Glassmorphism
+
+**Backend:**
+- **API Framework**: FastAPI (Python 3.10+)
+- **Task Queue**: Celery + Redis
+- **AI Providers**: Claude 3.7 (Anthropic), Gemini (Google), LLaMA 3.3 (Cerebras), Trellis (PiAPI)
+
+---
+
+## 🏃 Quick Start
 
 ### Prerequisites
-
 - Node.js 18+
 - Python 3.10+
-- API keys for Claude, Gemini, Cerebras, and PiAPI
+- Redis (running locally or via Docker)
 
-### Frontend Setup
-
+### 1. Clone the repository
 ```bash
-cd frontend
-
-npm install
-
-npm run dev
+git clone https://github.com/Ashutoshx7/Scribble3D-Sketch-to-3rd-.git
+cd Scribble3D-Sketch-to-3rd-
 ```
 
-### Backend Setup
-
+### 2. Backend Setup
 ```bash
-cd backend
+cd vibe-draw-main/vibe-draw-main/backend
 
-# remember to add api keys
+# Create environment file
 cp .env.example .env
+# Edit .env with your API keys (ANTHROPIC_API_KEY, GOOGLE_API_KEY, CEREBRAS_API_KEY, TRELLIS_API_KEY)
 
-docker compose up
+# Install dependencies
+pip install -r requirements.txt
+
+# Start Redis & Worker (Separate terminals)
+# Terminal 1: Start Redis
+docker run -p 6379:6379 redis
+
+# Terminal 2: Start API Server
+uvicorn app.main:app --reload --port 8000
+
+# Terminal 3: Start Celery Worker
+celery -A app.core.celery_app worker --loglevel=info -P solo
 ```
 
-## Architecture
+### 3. Frontend Setup
+```bash
+cd Scribble3D
 
-### Frontend
+# Install dependencies
+pnpm install
 
-- **Next.js & React**: Responsive, user-friendly UI
-- **Three.js**: Rendering interactive 3D models
-- **TLDraw**: Powerful 2D drawing canvas
-- **Zustand**: State management
+# Start the development server
+pnpm --filter web dev
+```
 
-### Backend
+Visit `http://localhost:3000` to start creating!
 
-- **FastAPI**: High-performance API framework
-- **Celery**: Asynchronous task queue for AI operations
-- **Redis**: Pub/Sub for real-time updates and task result storage
-- **SSE (Server-Sent Events)**: Real-time progress updates
+---
 
-## Inspiration
+## 🎨 How to Use
+1. **Sketch**: Use the 2D canvas to draw your object.
+2. **Improve**: (Optional) Use the "Improve Drawing" button to let Gemini polish your sketch.
+3. **Make 3D**: Click the glowing button. 
+   - **Brain Icon ON**: High-fidelity Foundation models.
+   - **Brain Icon OFF**: Editable Three.js code.
+4. **Explore**: Once the 3D world loads, use **WASD** to walk and **Mouse** to look around.
+5. **Manage**: Select objects and press **Backspace** to delete or use the Transform Controls to move them.
 
-Creativity is often constrained by technical skills or complex software. Vibe Draw makes 3D modeling accessible to anyone regardless of artistic or technical abilities.
+---
 
-Our goal is to empower people to freely express their imagination and bring their ideas effortlessly into 3D worlds.
+## 📜 License
+This project is licensed under the [AGPL License](LICENSE).
 
-## License
+---
 
-[AGPL](LICENSE)
+## ✨ Credits
+Created with ❤️ by the Scribble3D team. Special thanks to the teams at Anthropic, Google DeepMind, and PiAPI for the world-class AI models that power this experience.
