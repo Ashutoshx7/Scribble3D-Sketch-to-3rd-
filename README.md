@@ -9,9 +9,13 @@
 ---
 
 ## 📺 Project Demo
-https://github.com/user-attachments/assets/a3c804e1-b208-4855-b285-d571bedf1f3e
+
+https://github.com/user-attachments/assets/a564f2db-37d2-413a-9ae3-6a2391c6723a
 
 ---
+
+
+
 
 ## 🚀 The Vision
 Scribble3D is an AI-powered creative suite that removes the technical barriers to 3D modeling. Whether you're a professional designer or someone who just likes to doodle, Scribble3D allows you to transform simple sketches into rich, interactive 3D environments in seconds.
