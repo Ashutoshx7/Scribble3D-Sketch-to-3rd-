@@ -120,7 +120,4 @@ Visit `http://localhost:3000` to start creating!
 ## 📜 License
 This project is licensed under the [AGPL License](LICENSE).
 
----
-
-## ✨ Credits
-Created with ❤️ by the Scribble3D team. Special thanks to the teams at Anthropic, Google DeepMind, and PiAPI for the world-class AI models that power this experience.
+--
