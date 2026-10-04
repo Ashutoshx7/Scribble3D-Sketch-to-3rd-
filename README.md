@@ -6,7 +6,9 @@ Scribble3D is a sketch-to-3D modeling application built with Next.js and FastAPI
 
 ## Demo
 
-[Watch the Scribble3D demo on YouTube](https://youtu.be/vEW0auc6fXI?si=JO0xwfuVdBw1O2Q2)
+[![Scribble3D demo video preview](https://img.youtube.com/vi/vEW0auc6fXI/maxresdefault.jpg)](https://youtu.be/vEW0auc6fXI?si=JO0xwfuVdBw1O2Q2)
+
+**[▶ Watch the full demo on YouTube](https://youtu.be/vEW0auc6fXI?si=JO0xwfuVdBw1O2Q2)**
 
 ## Features
 
