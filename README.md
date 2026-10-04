@@ -2,7 +2,7 @@
 
 Turn sketches into 3D models and compose interactive worlds in the browser.
 
-Scribble3D is based on [Vibe Draw](https://github.com/martin226/vibe-draw). This version uses a Next.js frontend and a FastAPI backend.
+Scribble3D is a sketch-to-3D modeling application built with Next.js and FastAPI.
 
 ![Scribble3D UI](docs/ui.jpeg)
 
@@ -98,6 +98,6 @@ Generated JavaScript is executed in the browser. Public deployment requires a de
 - backend: API contracts, task orchestration, provider integrations, and local Compose services.
 - docs: product screenshots and icon assets.
 
-## License and attribution
+## License
 
-The application source is based on [Vibe Draw by martin226](https://github.com/martin226/vibe-draw). The original [GNU Affero General Public License v3](LICENSE) is retained.
+[GNU Affero General Public License v3](LICENSE)
