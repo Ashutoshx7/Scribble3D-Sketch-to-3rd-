@@ -1,0 +1,17 @@
+{
+    "name": "Scribble3D",
+    "short_name": "Scribble3D",
+    "description": "Turn sketches into 3D models and compose interactive worlds",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait",
+    "icons": [
+      {
+        "src": "/icon.jpeg",
+        "sizes": "256x256",
+        "type": "image/jpeg",
+        "purpose": "any"
+      }
+    ]
+}

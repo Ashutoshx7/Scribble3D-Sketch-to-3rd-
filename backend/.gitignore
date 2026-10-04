@@ -1,0 +1,4 @@
+__pycache__/
+.env
+CLAUDE.md
+debug_images/
