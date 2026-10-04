@@ -1,0 +1,61 @@
+services:
+  api:
+    build: .
+    container_name: scribble3d-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+    environment:
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      # Add your Anthropic API key here or use .env file
+      
+    env_file:
+      - .env
+    networks:
+      - scribble3d-network
+
+  worker:
+    build: .
+    container_name: scribble3d-worker
+    command: celery -A worker worker --loglevel=info
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - api
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      # Add your Anthropic API key here or use .env file
+      
+    env_file:
+      - .env
+    networks:
+      - scribble3d-network
+
+  redis:
+    image: redis:alpine
+    container_name: scribble3d-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - scribble3d-network
+
+volumes:
+  redis-data:
+
+networks:
+  scribble3d-network:
+    driver: bridge

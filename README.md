@@ -1,123 +1,103 @@
-# Scribble3D 🎨✨
-### Turn your sketches into 3D objects and worlds — No 3D skills required!
+# Scribble3D
 
-[![License: AGPL](https://img.shields.io/badge/License-AGPL-blue.svg)](LICENSE)
-[![Next.js](https://img.shields.io/badge/Next.js-15-black.svg)](https://nextjs.org/)
-[![Three.js](https://img.shields.io/badge/Three.js-r170-orange.svg)](https://threejs.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com/)
+Turn sketches into 3D models and compose interactive worlds in the browser.
 
----
+Scribble3D is based on [Vibe Draw](https://github.com/martin226/vibe-draw). This version uses a Next.js frontend and a FastAPI backend.
 
-## 📺 Project Demo
+![Scribble3D UI](docs/ui.jpeg)
 
-https://github.com/user-attachments/assets/a564f2db-37d2-413a-9ae3-6a2391c6723a
+## Features
 
----
+- Draw and annotate sketches with TLDraw.
+- Enhance drawings with Gemini image generation.
+- Generate Three.js scene code through Anthropic or model assets through Trellis via PiAPI.
+- Edit generated code previews using sketch and text instructions.
+- Extract reusable object code with Cerebras and add objects to a shared 3D world.
+- Select, translate, rotate, and scale objects.
+- Navigate with first-person keyboard controls or touch joysticks.
+- Export user-created scene content as a JSON glTF file.
 
+The drawing canvas has browser persistence configured. The assembled world currently depends on in-memory state and is not a durable saved project.
 
+## Technology
 
+| Area | Stack |
+|---|---|
+| Frontend | Next.js 14, React 18, TypeScript, TLDraw |
+| 3D editor | Three.js, React Three Fiber, Drei, Zustand |
+| API | Python, FastAPI, Pydantic, HTTPX |
+| Background processing | Celery and Redis |
+| Task updates | Server-Sent Events and WebSockets |
+| AI integrations | Anthropic, Google Gemini, Cerebras, PiAPI Trellis |
 
-## 🚀 The Vision
-Scribble3D is an AI-powered creative suite that removes the technical barriers to 3D modeling. Whether you're a professional designer or someone who just likes to doodle, Scribble3D allows you to transform simple sketches into rich, interactive 3D environments in seconds.
+## Run locally
 
-## ✨ Key Features
+Use separate terminals for the frontend and backend. You need Node.js and npm, Docker, Docker Compose, and credentials for the AI features you use.
 
-### 1. Dual AI Generation Engines
-- **Standard Mode (Claude 3.7)**: Generates procedural Three.js JavaScript code. This creates lightweight, editable models that you can refine using procedural logic.
-- **Thinking Mode (Trellis)**: Utilizes deep-reasoning foundation models to generate high-fidelity GLTF assets from complex drawings. Perfect for organic or highly detailed shapes.
+### Frontend
 
-### 2. Magic "Wow" Workflow
-- **Automatic Teleportation**: Once your 3D model is ready, the app automatically switches your view from the 2D canvas to the 3D world.
-- **Instant Scene Integration**: Generated objects are parsed and placed into your persistence-backed 3D world immediately.
-
-### 3. Iterative Sketch-to-Edit
-- Select any 3D model in your world, draw a modification on the 2D canvas, and click **"Edit 3D"**. Claude will intelligently update the Three.js code or Trellis will re-generate the model to match your vision.
-
-### 4. Interactive 3D World
-- **First-Person Controls**: Explore your world with standard WASD controls.
-- **Premium Aesthetics**: Features glassmorphism UI, interactive grids, and a dynamic Ocean environment for your models to live in.
-- **Multi-device Support**: Includes optimized joystick controls for mobile and tablet browsing.
-
----
-
-## 🛠️ Tech Stack
-
-**Frontend:**
-- **Framework**: Next.js 15 (Turbopack)
-- **2D Canvas**: [tldraw](https://tldraw.dev/)
-- **3D Engine**: Three.js + [React Three Fiber](https://r3.docs.pmnd.rs/)
-- **State Management**: Zustand
-- **Styling**: Vanilla CSS with Modern Glassmorphism
-
-**Backend:**
-- **API Framework**: FastAPI (Python 3.10+)
-- **Task Queue**: Celery + Redis
-- **AI Providers**: Claude 3.7 (Anthropic), Gemini (Google), LLaMA 3.3 (Cerebras), Trellis (PiAPI)
-
----
-
-## 🏃 Quick Start
-
-### Prerequisites
-- Node.js 18+
-- Python 3.10+
-- Redis (running locally or via Docker)
-
-### 1. Clone the repository
 ```bash
-git clone https://github.com/Ashutoshx7/Scribble3D-Sketch-to-3rd-.git
-cd Scribble3D-Sketch-to-3rd-
+cd frontend
+npm ci
+npm run dev
 ```
 
-### 2. Backend Setup
-```bash
-cd vibe-draw-main/vibe-draw-main/backend
+Open the development URL printed by Next.js, normally http://localhost:3000.
 
-# Create environment file
+### Backend
+
+```bash
+cd backend
 cp .env.example .env
-# Edit .env with your API keys (ANTHROPIC_API_KEY, GOOGLE_API_KEY, CEREBRAS_API_KEY, TRELLIS_API_KEY)
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Start Redis & Worker (Separate terminals)
-# Terminal 1: Start Redis
-docker run -p 6379:6379 redis
-
-# Terminal 2: Start API Server
-uvicorn app.main:app --reload --port 8000
-
-# Terminal 3: Start Celery Worker
-celery -A app.core.celery_app worker --loglevel=info -P solo
 ```
 
-### 3. Frontend Setup
+Copy the example only if you do not already have a configured .env. Fill in the keys for the workflows you want to use:
+
+| Environment variable | Operation |
+|---|---|
+| ANTHROPIC_API_KEY | Code generation and editing |
+| GOOGLE_API_KEY | Drawing enhancement |
+| CEREBRAS_API_KEY | Add a code preview to the world |
+| TRELLIS_API_KEY | Mesh generation through PiAPI |
+
+Then start the API, worker, and Redis services:
+
 ```bash
-cd Scribble3D
-
-# Install dependencies
-pnpm install
-
-# Start the development server
-pnpm --filter web dev
+docker compose config --quiet
+docker compose up --build -d
+docker compose ps
 ```
 
-Visit `http://localhost:3000` to start creating!
+The API listens at http://localhost:8000, with API documentation at http://localhost:8000/docs. The backend image uses Python 3.11.
 
----
+The source contains legacy provider model IDs. Verify current model availability and request/response compatibility before testing live generation. OpenRouter is not integrated in this version.
 
-## 🎨 How to Use
-1. **Sketch**: Use the 2D canvas to draw your object.
-2. **Improve**: (Optional) Use the "Improve Drawing" button to let Gemini polish your sketch.
-3. **Make 3D**: Click the glowing button. 
-   - **Brain Icon ON**: High-fidelity Foundation models.
-   - **Brain Icon OFF**: Editable Three.js code.
-4. **Explore**: Once the 3D world loads, use **WASD** to walk and **Mouse** to look around.
-5. **Manage**: Select objects and press **Backspace** to delete or use the Transform Controls to move them.
+### Basic checks
 
----
+From the backend directory:
 
-## 📜 License
-This project is licensed under the [AGPL License](LICENSE).
+```bash
+docker compose exec -T redis redis-cli ping
+curl -fsS http://localhost:8000/
+docker compose exec -T worker celery -A worker inspect --timeout=10 ping
+```
 
---
+These check service connectivity, not successful AI generation.
+
+## Generation paths
+
+The main Make 3D button starts with its thinking toggle enabled, selecting Trellis mesh generation. Disable that toggle for the Anthropic code-generation path. The toggle selects an output pipeline; it does not enable a language model's reasoning mode.
+
+Queued code-generation, editing, and enhancement tasks use Celery with Redis and return lifecycle events over SSE. Trellis tasks run at PiAPI; the backend polls status and relays it through a WebSocket. Cerebras object extraction is a direct awaited API call.
+
+Generated JavaScript is executed in the browser. Public deployment requires a deliberate output-execution policy, authenticated ownership, and request/budget limits.
+
+## Source layout
+
+- frontend: sketch editor, previews, world editor, and glTF export.
+- backend: API contracts, task orchestration, provider integrations, and local Compose services.
+- docs: product screenshots and icon assets.
+
+## License and attribution
+
+The application source is based on [Vibe Draw by martin226](https://github.com/martin226/vibe-draw). The original [GNU Affero General Public License v3](LICENSE) is retained.
