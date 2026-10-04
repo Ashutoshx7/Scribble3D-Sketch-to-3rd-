@@ -4,7 +4,9 @@ Turn sketches into 3D models and compose interactive worlds in the browser.
 
 Scribble3D is a sketch-to-3D modeling application built with Next.js and FastAPI.
 
-![Scribble3D UI](docs/ui.jpeg)
+## Demo
+
+[Watch the Scribble3D demo on YouTube](https://youtu.be/vEW0auc6fXI?si=JO0xwfuVdBw1O2Q2)
 
 ## Features
 
